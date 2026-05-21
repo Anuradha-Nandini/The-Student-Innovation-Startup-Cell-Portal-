@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0A1628;
+  --navy2:#0D1F3C;
+  --cyan:#2DD4BF;
+  --cyan2:#1fb8a5;
+  --beige:#F5F0E8;
+  --beige2:#EDE8DC;
+  --cream:#EEF6F8;
+  --muted:#3D4F6B;
+  --muted2:#5A6E8A;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:#fff;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 60px;height:68px;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s;background:rgba(10,22,40,0.5);backdrop-filter:blur(20px);border-bottom:1px solid rgba(45,212,191,0.08);}
+nav.scrolled{background:rgba(10,22,40,0.95);border-bottom:1px solid rgba(45,212,191,0.15);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);}
+.nav-logo span{color:var(--cyan);}
+.nav-center{display:flex;gap:36px;}
+.nav-center a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.55);text-decoration:none;transition:color 0.2s;}
+.nav-center a:hover{color:#fff;}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.nav-login{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.75);background:transparent;border-radius:3px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.nav-login:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+.nav-signup{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 20px;background:var(--cyan);border:1px solid var(--cyan);color:var(--navy);border-radius:3px;cursor:pointer;transition:all 0.2s;text-decoration:none;font-weight:600;}
+.nav-signup:hover{background:var(--cyan2);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:130px 60px 80px;position:relative;overflow:hidden;}
+.mesh-blob{position:absolute;border-radius:50%;filter:blur(80px);animation:drift 12s ease-in-out infinite alternate;pointer-events:none;}
+.m1{width:600px;height:600px;background:radial-gradient(circle,rgba(45,212,191,0.18),transparent 70%);top:-150px;left:-120px;animation-delay:0s;}
+.m2{width:500px;height:500px;background:radial-gradient(circle,rgba(100,150,255,0.14),transparent 70%);top:80px;right:-100px;animation-delay:-4s;}
+.m3{width:400px;height:400px;background:radial-gradient(circle,rgba(245,240,232,0.06),transparent 70%);bottom:-80px;left:150px;animation-delay:-8s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1);}100%{transform:translate(40px,30px) scale(1.08);}}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.stars{position:absolute;inset:0;pointer-events:none;}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:0.08;}50%{opacity:0.5;}}
+
+.hero-content{position:relative;z-index:2;max-width:860px;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.25);border-radius:100px;padding:7px 20px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);margin-bottom:36px;box-shadow:0 0 20px rgba(45,212,191,0.1);}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease-in-out infinite;box-shadow:0 0 8px var(--cyan);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:90px;font-weight:300;line-height:0.9;letter-spacing:-3px;margin-bottom:20px;color:#fff;}
+.hero-title em{font-style:italic;color:var(--cyan);text-shadow:0 0 60px rgba(45,212,191,0.4);}
+.hero-title .outline{-webkit-text-stroke:1.5px rgba(245,240,232,0.4);color:transparent;}
+.hero-portal{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:rgba(245,240,232,0.75);letter-spacing:1px;margin-bottom:20px;}
+.hero-portal span{color:var(--cyan);}
+.hero-desc{font-size:15px;font-weight:300;color:rgba(245,240,232,0.5);line-height:1.85;max-width:500px;margin:0 auto 40px;}
+.hero-cta{display:flex;gap:14px;justify-content:center;margin-bottom:60px;}
+.cta-main{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;background:var(--cyan);color:var(--navy);border:none;border-radius:4px;cursor:pointer;font-weight:600;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 40px rgba(45,212,191,0.3);}
+.cta-main:hover{background:var(--cyan2);box-shadow:0 0 60px rgba(45,212,191,0.5);transform:translateY(-2px);}
+.cta-sec{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;background:rgba(245,240,232,0.05);color:rgba(245,240,232,0.7);border:1px solid rgba(245,240,232,0.15);border-radius:4px;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;}
+.cta-sec:hover{border-color:rgba(245,240,232,0.4);color:var(--beige);background:rgba(245,240,232,0.08);}
+.hero-stats{display:flex;border:1px solid rgba(245,240,232,0.08);border-radius:14px;overflow:hidden;background:rgba(245,240,232,0.03);backdrop-filter:blur(12px);box-shadow:0 0 40px rgba(45,212,191,0.05);}
+.hstat{padding:20px 40px;border-right:1px solid rgba(245,240,232,0.07);text-align:center;}
+.hstat:last-child{border-right:none;}
+.hstat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--cyan);line-height:1;text-shadow:0 0 20px rgba(45,212,191,0.4);}
+.hstat-l{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.35);margin-top:4px;}
+.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:2;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(45,212,191,0.6));animation:scrollAnim 2s ease-in-out infinite;}
+@keyframes scrollAnim{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+.scroll-txt{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.2);}
+
+/* SCROLLING STRIP */
+.strip-wrap{background:var(--beige);padding:0;overflow:hidden;border-top:1px solid rgba(13,31,60,0.08);}
+.strip-inner{padding:28px 0;overflow:hidden;}
+.cards-track{display:flex;gap:14px;animation:slideCards 25s linear infinite;width:max-content;}
+.cards-track:hover{animation-play-state:paused;}
+@keyframes slideCards{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+.strip-card{flex-shrink:0;background:#fff;border:1px solid rgba(13,31,60,0.08);border-radius:10px;padding:14px 18px;min-width:180px;display:flex;align-items:center;gap:10px;box-shadow:0 2px 12px rgba(13,31,60,0.06);transition:all 0.2s;}
+.strip-card:hover{border-color:rgba(45,212,191,0.4);box-shadow:0 4px 20px rgba(45,212,191,0.12);transform:translateY(-2px);}
+.sc-icon{font-size:18px;}
+.sc-name{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--navy2);}
+
+/* ABOUT — BEIGE */
+.about-section{padding:100px 60px;background:var(--beige);position:relative;overflow:hidden;}
+.about-section::before{content:'';position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,0.12),transparent 70%);filter:blur(60px);top:-100px;right:-60px;pointer-events:none;}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2;}
+.sec-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--cyan2);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.sec-label::before{content:'';width:28px;height:1px;background:var(--cyan);}
+.sec-label.light{color:var(--cyan);}
+.sec-label.light::before{background:var(--cyan);}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:300;color:var(--navy);line-height:1.05;letter-spacing:-1px;margin-bottom:20px;}
+.about-title em{font-style:italic;color:var(--cyan2);}
+.about-body{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85;}
+.about-cards{display:flex;flex-direction:column;gap:14px;}
+.acard{background:#fff;border:1px solid rgba(13,31,60,0.07);border-radius:16px;padding:22px;box-shadow:0 4px 20px rgba(13,31,60,0.06);transition:all 0.25s;position:relative;overflow:hidden;}
+.acard::after{content:'';position:absolute;inset:0;border-radius:16px;box-shadow:0 0 0 0 rgba(45,212,191,0);transition:box-shadow 0.3s;}
+.acard:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(13,31,60,0.1);}
+.acard:hover::after{box-shadow:0 0 0 1.5px rgba(45,212,191,0.3),0 8px 30px rgba(45,212,191,0.08);}
+.acard-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
+.acard-icon{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,rgba(45,212,191,0.15),rgba(45,212,191,0.05));display:flex;align-items:center;justify-content:center;font-size:17px;border:1px solid rgba(45,212,191,0.2);}
+.acard-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--navy);}
+.acard-body{font-size:11.5px;font-weight:300;color:var(--muted2);line-height:1.65;}
+
+/* FEATURES — NAVY */
+.features-section{padding:100px 60px;background:var(--navy2);position:relative;overflow:hidden;}
+.feat-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;}
+.feat-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.fb1{width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,0.1),transparent 70%);top:-100px;left:-60px;}
+.fb2{width:300px;height:300px;background:radial-gradient(circle,rgba(245,240,232,0.04),transparent 70%);bottom:-80px;right:-40px;}
+.feat-header{position:relative;z-index:2;margin-bottom:48px;}
+.feat-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1.05;letter-spacing:-1px;color:#fff;}
+.feat-title em{font-style:italic;color:var(--cyan);}
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;position:relative;z-index:2;}
+.feat-item{background:rgba(245,240,232,0.03);border:1px solid rgba(245,240,232,0.07);border-radius:20px;padding:32px;transition:all 0.3s;position:relative;overflow:hidden;}
+.feat-item::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(45,212,191,0.05),transparent);opacity:0;transition:opacity 0.3s;}
+.feat-item:hover{border-color:rgba(45,212,191,0.25);transform:translateY(-3px);box-shadow:0 0 40px rgba(45,212,191,0.08),0 16px 40px rgba(0,0,0,0.2);}
+.feat-item:hover::before{opacity:1;}
+.fi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.fi-icon{font-size:28px;}
+.fi-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(45,212,191,0.45);}
+.fi-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:8px;}
+.fi-desc{font-size:12.5px;font-weight:300;color:rgba(245,240,232,0.55);line-height:1.7;}
+.fi-modules{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.fi-mod{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:rgba(45,212,191,0.07);border:1px solid rgba(45,212,191,0.12);color:rgba(45,212,191,0.65);}
+
+/* PITCH — BEIGE */
+.pitch-section{padding:100px 60px;background:var(--beige2);position:relative;overflow:hidden;}
+.pitch-section::before{content:'';position:absolute;width:500px;height:400px;background:radial-gradient(circle,rgba(45,212,191,0.1),transparent 70%);filter:blur(70px);bottom:-80px;right:-80px;pointer-events:none;}
+.pitch-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2;}
+.pitch-title{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--navy);line-height:0.95;letter-spacing:-2px;margin-bottom:20px;}
+.pitch-title em{font-style:italic;color:var(--cyan2);}
+.pitch-body{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85;margin-bottom:24px;}
+.pitch-tags{display:flex;flex-wrap:wrap;gap:8px;}
+.ptag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:6px 14px;border-radius:100px;background:rgba(13,31,60,0.06);border:1px solid rgba(13,31,60,0.12);color:var(--muted);}
+.pitch-card-wrap{position:relative;}
+.pitch-card{background:var(--navy);border-radius:24px;padding:36px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(45,212,191,0.15),0 32px 80px rgba(13,31,60,0.25),0 0 80px rgba(45,212,191,0.08);}
+.pc-glow{position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(45,212,191,0.2),transparent 70%);top:-80px;right:-60px;filter:blur(40px);pointer-events:none;}
+.pc-glow2{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(147,197,253,0.1),transparent 70%);bottom:-40px;left:-40px;filter:blur(40px);pointer-events:none;}
+.pc-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(45,212,191,0.6);margin-bottom:6px;}
+.pc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;font-style:italic;color:#fff;margin-bottom:24px;}
+.pc-rows{display:flex;flex-direction:column;gap:16px;}
+.pc-row{display:flex;flex-direction:column;gap:6px;}
+.pc-row-top{display:flex;justify-content:space-between;}
+.pc-name{font-size:12px;font-weight:400;color:rgba(245,240,232,0.75);}
+.pc-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--cyan);font-weight:500;}
+.pc-bar{height:4px;border-radius:100px;background:rgba(255,255,255,0.06);}
+.pc-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--cyan),#93C5FD);box-shadow:0 0 8px rgba(45,212,191,0.4);}
+.pc-result{margin-top:24px;padding:16px;background:linear-gradient(135deg,rgba(45,212,191,0.12),rgba(147,197,253,0.07));border:1px solid rgba(45,212,191,0.25);border-radius:12px;text-align:center;box-shadow:inset 0 0 20px rgba(45,212,191,0.05);}
+.pc-res-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;font-style:italic;color:#fff;text-shadow:0 0 20px rgba(45,212,191,0.3);}
+.pc-res-sub{font-size:10.5px;font-weight:300;color:rgba(245,240,232,0.45);margin-top:4px;}
+
+/* SUCCESS — NAVY */
+.success-section{padding:100px 60px;background:var(--navy);position:relative;overflow:hidden;}
+.success-mesh{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;}
+.success-header{position:relative;z-index:2;margin-bottom:48px;}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#fff;line-height:1.05;letter-spacing:-1px;}
+.success-title em{font-style:italic;color:var(--cyan);}
+.success-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:2;}
+.sc-card{background:rgba(245,240,232,0.03);border:1px solid rgba(245,240,232,0.07);border-radius:20px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden;}
+.sc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(45,212,191,0.04),transparent);opacity:0;transition:opacity 0.3s;border-radius:20px;}
+.sc-card:hover{border-color:rgba(45,212,191,0.25);transform:translateY(-4px);box-shadow:0 0 40px rgba(45,212,191,0.1),0 20px 40px rgba(0,0,0,0.2);}
+.sc-card:hover::before{opacity:1;}
+.sc-domain-badge{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);background:rgba(45,212,191,0.08);border:1px solid rgba(45,212,191,0.18);border-radius:100px;padding:5px 12px;margin-bottom:16px;}
+.sc-startup-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#fff;margin-bottom:6px;}
+.sc-founder{font-size:11px;color:rgba(245,240,232,0.35);margin-bottom:14px;font-weight:300;}
+.sc-desc{font-size:12px;font-weight:300;color:rgba(245,240,232,0.6);line-height:1.75;margin-bottom:18px;}
+.sc-status{display:inline-flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);}
+.sc-status-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+
+/* CTA — BEIGE */
+.cta-final{padding:120px 60px;text-align:center;background:var(--beige);position:relative;overflow:hidden;}
+.cta-final::before{content:'';position:absolute;width:600px;height:400px;background:radial-gradient(ellipse,rgba(45,212,191,0.1),transparent 70%);filter:blur(60px);top:0;left:50%;transform:translateX(-50%);pointer-events:none;}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--navy);line-height:0.95;letter-spacing:-2px;margin-bottom:20px;position:relative;z-index:2;}
+.cta-title em{font-style:italic;color:var(--cyan2);}
+.cta-sub{font-size:15px;font-weight:300;color:var(--muted);max-width:480px;margin:0 auto 40px;line-height:1.8;position:relative;z-index:2;}
+.cta-btns{display:flex;gap:14px;justify-content:center;position:relative;z-index:2;}
+.cta-btn-main{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;background:var(--navy);color:var(--beige);border:1px solid var(--navy);border-radius:4px;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 8px 30px rgba(13,31,60,0.15);}
+.cta-btn-main:hover{background:var(--navy2);box-shadow:0 12px 40px rgba(13,31,60,0.25);transform:translateY(-2px);}
+.cta-btn-sec{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:16px 36px;background:transparent;color:var(--navy);border:1px solid rgba(13,31,60,0.25);border-radius:4px;cursor:pointer;transition:all 0.3s;text-decoration:none;display:inline-flex;align-items:center;}
+.cta-btn-sec:hover{border-color:var(--navy);background:rgba(13,31,60,0.04);}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:1px solid rgba(245,240,232,0.06);padding:36px 60px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;}
+.foot-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#fff;}
+.foot-logo span{color:var(--cyan);}
+.foot-center{text-align:center;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.2);line-height:1.8;}
+.foot-right{text-align:right;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:rgba(245,240,232,0.2);}
+
+/* REVEAL ANIMATION */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* HERO FADE IN */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.fu1{animation:fadeUp 0.8s ease 0.1s both;}
+.fu2{animation:fadeUp 0.8s ease 0.25s both;}
+.fu3{animation:fadeUp 0.8s ease 0.4s both;}
+.fu4{animation:fadeUp 0.8s ease 0.55s both;}
+.fu5{animation:fadeUp 0.8s ease 0.7s both;}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo"><div class="nav-logo-dot"></div>Startup<span>Cell</span></a>
+  <div class="nav-center">
+    <a href="#features">Features</a>
+    <a href="#pitch">Pitch Checker</a>
+    <a href="#success">Success Stories</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-login">Login</a>
+    <a href="#" class="nav-signup">Sign Up →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="mesh-blob m1"></div>
+  <div class="mesh-blob m2"></div>
+  <div class="mesh-blob m3"></div>
+  <div class="grid-lines"></div>
+  <div class="stars" id="stars"></div>
+  <div class="hero-content">
+    <div class="hero-badge fu1"><span class="hero-badge-dot"></span>FEDF · Problem 233 · KL Hyderabad</div>
+    <div class="hero-title fu2">Where <em>ideas</em><br>become <span class="outline">ventures.</span></div>
+    <div class="hero-portal fu3">Student Innovation &amp; <span>Startup Cell Portal</span></div>
+    <div class="hero-desc fu3">One platform for college students to register startups, connect with mentors, track milestones, and walk into any pitch — completely ready.</div>
+    <div class="hero-cta fu4">
+      <a href="#" class="cta-main">Get Started →</a>
+      <a href="#features" class="cta-sec">Explore Features</a>
+    </div>
+    <div class="hero-stats fu5">
+      <div class="hstat"><div class="hstat-n">10+</div><div class="hstat-l">Modules</div></div>
+      <div class="hstat"><div class="hstat-n">50+</div><div class="hstat-l">Startups</div></div>
+      <div class="hstat"><div class="hstat-n">20+</div><div class="hstat-l">Mentors</div></div>
+      <div class="hstat"><div class="hstat-n">100%</div><div class="hstat-l">Free</div></div>
+    </div>
+  </div>
+  <div class="scroll-ind"><div class="scroll-txt">Scroll</div><div class="scroll-line"></div></div>
+</section>
+
+<!-- SCROLLING STRIP — BEIGE -->
+<div class="strip-wrap">
+  <div class="strip-inner">
+    <div class="cards-track">
+      <div class="strip-card"><span class="sc-icon">💡</span><span class="sc-name">Startup Register</span></div>
+      <div class="strip-card"><span class="sc-icon">📝</span><span class="sc-name">Proposal Form</span></div>
+      <div class="strip-card"><span class="sc-icon">🏛️</span><span class="sc-name">Incubation Apply</span></div>
+      <div class="strip-card"><span class="sc-icon">🤝</span><span class="sc-name">Mentor Assign</span></div>
+      <div class="strip-card"><span class="sc-icon">📊</span><span class="sc-name">Progress Tracker</span></div>
+      <div class="strip-card"><span class="sc-icon">🏆</span><span class="sc-name">Success Gallery</span></div>
+      <div class="strip-card"><span class="sc-icon">🔔</span><span class="sc-name">Notifications</span></div>
+      <div class="strip-card"><span class="sc-icon">📁</span><span class="sc-name">History & Export</span></div>
+      <div class="strip-card"><span class="sc-icon">⚙️</span><span class="sc-name">Admin Panel</span></div>
+      <div class="strip-card"><span class="sc-icon">🚀</span><span class="sc-name">Pitch Checker</span></div>
+      <div class="strip-card"><span class="sc-icon">💡</span><span class="sc-name">Startup Register</span></div>
+      <div class="strip-card"><span class="sc-icon">📝</span><span class="sc-name">Proposal Form</span></div>
+      <div class="strip-card"><span class="sc-icon">🏛️</span><span class="sc-name">Incubation Apply</span></div>
+      <div class="strip-card"><span class="sc-icon">🤝</span><span class="sc-name">Mentor Assign</span></div>
+      <div class="strip-card"><span class="sc-icon">📊</span><span class="sc-name">Progress Tracker</span></div>
+      <div class="strip-card"><span class="sc-icon">🏆</span><span class="sc-name">Success Gallery</span></div>
+      <div class="strip-card"><span class="sc-icon">🔔</span><span class="sc-name">Notifications</span></div>
+      <div class="strip-card"><span class="sc-icon">📁</span><span class="sc-name">History & Export</span></div>
+      <div class="strip-card"><span class="sc-icon">⚙️</span><span class="sc-name">Admin Panel</span></div>
+      <div class="strip-card"><span class="sc-icon">🚀</span><span class="sc-name">Pitch Checker</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT — BEIGE -->
+<section class="about-section">
+  <div class="about-inner">
+    <div>
+      <div class="sec-label reveal">About the Portal</div>
+      <div class="about-title reveal reveal-delay-1">Built for students<br>who mean <em>business.</em></div>
+      <div class="about-body reveal reveal-delay-2">Managing startup activities in college is often scattered and unorganised. This portal brings everything together — from your first idea to your final pitch — in one clean, structured platform.<br><br>It simulates exactly how a real incubation cell works, giving students the infrastructure they need to grow their ideas seriously and confidently.</div>
+    </div>
+    <div class="about-cards">
+      <div class="acard reveal reveal-delay-1"><div class="acard-top"><div class="acard-icon">🎯</div><div class="acard-title">Structured Journey</div></div><div class="acard-body">Every step from idea to incubation is mapped, tracked, and visible. No more guessing what comes next.</div></div>
+      <div class="acard reveal reveal-delay-2"><div class="acard-top"><div class="acard-icon">🔗</div><div class="acard-title">Real Collaboration</div></div><div class="acard-body">Students, mentors, and admins all on the same platform, working toward the same goal together.</div></div>
+      <div class="acard reveal reveal-delay-3"><div class="acard-top"><div class="acard-icon">📈</div><div class="acard-title">Data-Driven Growth</div></div><div class="acard-body">Track milestones, export reports, and measure your startup's progress at every stage.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES — NAVY -->
+<section class="features-section" id="features">
+  <div class="feat-mesh"></div>
+  <div class="feat-blob fb1"></div>
+  <div class="feat-blob fb2"></div>
+  <div class="feat-header">
+    <div class="sec-label light reveal">Core Modules</div>
+    <div class="feat-title reveal reveal-delay-1">Everything you need,<br><em>all in one place.</em></div>
+  </div>
+  <div class="features-grid">
+    <div class="feat-item reveal reveal-delay-1">
+      <div class="fi-top"><div class="fi-icon">💡</div><div class="fi-num">01 — 02</div></div>
+      <div class="fi-name">Register & Propose</div>
+      <div class="fi-desc">Create your startup profile and submit your business idea or proposal. Admin reviews and approves — you get notified instantly.</div>
+      <div class="fi-modules"><span class="fi-mod">Startup Register</span><span class="fi-mod">Proposal Form</span></div>
+    </div>
+    <div class="feat-item reveal reveal-delay-2">
+      <div class="fi-top"><div class="fi-icon">🤝</div><div class="fi-num">03 — 04</div></div>
+      <div class="fi-name">Mentor & Track</div>
+      <div class="fi-desc">Get matched with domain experts based on your startup's focus. Track every milestone from Idea to Launch on a visual tracker.</div>
+      <div class="fi-modules"><span class="fi-mod">Mentor Assign</span><span class="fi-mod">Progress Tracker</span></div>
+    </div>
+    <div class="feat-item reveal reveal-delay-1">
+      <div class="fi-top"><div class="fi-icon">🏛️</div><div class="fi-num">05 — 06</div></div>
+      <div class="fi-name">Incubate & Showcase</div>
+      <div class="fi-desc">Apply for the college incubation program and — once you've made it — showcase your story on the public success gallery.</div>
+      <div class="fi-modules"><span class="fi-mod">Incubation Apply</span><span class="fi-mod">Success Gallery</span></div>
+    </div>
+    <div class="feat-item reveal reveal-delay-2">
+      <div class="fi-top"><div class="fi-icon">⚙️</div><div class="fi-num">07 — 10</div></div>
+      <div class="fi-name">Manage & Export</div>
+      <div class="fi-desc">Full admin panel to manage users, approvals and mentors. Plus notifications, complete activity history, and one-click data export.</div>
+      <div class="fi-modules"><span class="fi-mod">Admin Panel</span><span class="fi-mod">Notifications</span><span class="fi-mod">History</span><span class="fi-mod">Export</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PITCH — BEIGE -->
+<section class="pitch-section" id="pitch">
+  <div class="pitch-inner">
+    <div>
+      <div class="sec-label reveal">★ Our Unique Feature</div>
+      <div class="pitch-title reveal reveal-delay-1">Pitch<br><em>Readiness</em><br>Checker.</div>
+      <div class="pitch-body reveal reveal-delay-2">Most portals track what you did. This one tells you what to do next.<br><br>Answer questions about your startup and get a detailed score across five key dimensions. Find out exactly if you're ready to pitch — or what needs work first.</div>
+      <div class="pitch-tags reveal reveal-delay-2">
+        <span class="ptag">Idea Clarity</span><span class="ptag">Market Fit</span><span class="ptag">Team Readiness</span><span class="ptag">Innovation</span><span class="ptag">Solution Strength</span>
+      </div>
+    </div>
+    <div class="pitch-card-wrap reveal reveal-delay-1">
+      <div class="pitch-card">
+        <div class="pc-glow"></div>
+        <div class="pc-glow2"></div>
+        <div class="pc-label">Live Score Preview</div>
+        <div class="pc-title">Your Startup Evaluation</div>
+        <div class="pc-rows">
+          <div class="pc-row"><div class="pc-row-top"><span class="pc-name">Idea Clarity</span><span class="pc-pct">90%</span></div><div class="pc-bar"><div class="pc-fill" style="width:90%"></div></div></div>
+          <div class="pc-row"><div class="pc-row-top"><span class="pc-name">Market Fit</span><span class="pc-pct">74%</span></div><div class="pc-bar"><div class="pc-fill" style="width:74%"></div></div></div>
+          <div class="pc-row"><div class="pc-row-top"><span class="pc-name">Team Readiness</span><span class="pc-pct">80%</span></div><div class="pc-bar"><div class="pc-fill" style="width:80%"></div></div></div>
+          <div class="pc-row"><div class="pc-row-top"><span class="pc-name">Innovation</span><span class="pc-pct">86%</span></div><div class="pc-bar"><div class="pc-fill" style="width:86%"></div></div></div>
+          <div class="pc-row"><div class="pc-row-top"><span class="pc-name">Solution Strength</span><span class="pc-pct">70%</span></div><div class="pc-bar"><div class="pc-fill" style="width:70%"></div></div></div>
+        </div>
+        <div class="pc-result">
+          <div class="pc-res-title">🚀 Pitch Ready!</div>
+          <div class="pc-res-sub">Overall score: 84% — You're good to go</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS — NAVY -->
+<section class="success-section" id="success">
+  <div class="success-mesh"></div>
+  <div class="success-header">
+    <div class="sec-label light reveal">Success Stories</div>
+    <div class="success-title reveal reveal-delay-1">Startups that <em>made it.</em></div>
+  </div>
+  <div class="success-grid">
+    <div class="sc-card reveal reveal-delay-1">
+      <div class="sc-domain-badge">EdTech</div>
+      <div class="sc-startup-name">LearnLaunch</div>
+      <div class="sc-founder">Rohan Mehta · Batch 2023</div>
+      <div class="sc-desc">An AI-powered adaptive learning platform connecting rural students with quality education through vernacular content.</div>
+      <div class="sc-status"><span class="sc-status-dot"></span>Incubated</div>
+    </div>
+    <div class="sc-card reveal reveal-delay-2">
+      <div class="sc-domain-badge">HealthTech</div>
+      <div class="sc-startup-name">MedBridge</div>
+      <div class="sc-founder">Sneha Rao · Batch 2023</div>
+      <div class="sc-desc">Connecting patients in tier-2 cities to specialist doctors through real-time telemedicine and diagnostic support.</div>
+      <div class="sc-status"><span class="sc-status-dot"></span>Funded</div>
+    </div>
+    <div class="sc-card reveal reveal-delay-3">
+      <div class="sc-domain-badge">AgriTech</div>
+      <div class="sc-startup-name">FarmSmart</div>
+      <div class="sc-founder">Kiran Patel · Batch 2024</div>
+      <div class="sc-desc">IoT-based soil monitoring and crop advisory system helping small farmers increase yield by 40%.</div>
+      <div class="sc-status"><span class="sc-status-dot"></span>Launched</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA — BEIGE -->
+<section class="cta-final">
+  <div class="cta-title reveal">Ready to launch your<br><em>startup journey?</em></div>
+  <div class="cta-sub reveal reveal-delay-1">Join students turning ideas into real ventures. Register your startup, get mentored, and walk into your pitch — completely ready.</div>
+  <div class="cta-btns reveal reveal-delay-2">
+    <a href="#" class="cta-btn-main">Register Your Startup →</a>
+    <a href="#success" class="cta-btn-sec">View Success Stories</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">Startup<span>Cell</span> Portal</div>
+  <div class="foot-center">FEDF · Front End Development Frameworks & UI Engineering<br>Section 13 · KL Hyderabad</div>
+  <div class="foot-right">T. Parinita · 2520030562<br>Anuradha · 2520030171</div>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// Stars
+const s=document.getElementById('stars');
+for(let i=0;i<80;i++){
+  const d=document.createElement('div');
+  d.className='star';
+  d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s;width:${Math.random()<0.3?3:2}px;height:${Math.random()<0.3?3:2}px;`;
+  s.appendChild(d);
+}
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

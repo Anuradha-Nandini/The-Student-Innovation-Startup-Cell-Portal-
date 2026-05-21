@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Login — StartupCell Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#0A1628;
+  --navy2:#0D1F3C;
+  --cyan:#2DD4BF;
+  --cyan2:#1fb8a5;
+  --beige:#F5F0E8;
+  --beige2:#EDE8DC;
+  --muted:#3D4F6B;
+}
+html,body{font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;background:var(--navy);}
+
+/* ── BACKGROUND ── */
+.bg-blob{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;}
+.b1{width:600px;height:600px;background:radial-gradient(circle,rgba(45,212,191,0.18),transparent 70%);top:-180px;left:-140px;}
+.b2{width:500px;height:500px;background:radial-gradient(circle,rgba(100,150,255,0.13),transparent 70%);bottom:-140px;right:-100px;}
+.b3{width:350px;height:350px;background:radial-gradient(circle,rgba(245,240,232,0.06),transparent 70%);top:35%;right:8%;}
+.grid-lines{position:fixed;inset:0;background-image:linear-gradient(rgba(45,212,191,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s ease-in-out infinite;}
+@keyframes twinkle{0%,100%{opacity:0.08;}50%{opacity:0.5;}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 60px;height:68px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,22,40,0.7);backdrop-filter:blur(20px);border-bottom:1px solid rgba(45,212,191,0.12);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nav-logo-dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);}
+.nav-logo span{color:var(--cyan);}
+.nav-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--beige);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.2s;}
+.nav-back:hover{color:var(--cyan);}
+
+/* ── SPLIT LAYOUT ── */
+.page{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;z-index:1;}
+
+/* ── LEFT PANEL — BEIGE ── */
+.left-panel{background:var(--beige);display:flex;flex-direction:column;justify-content:center;padding:110px 64px 64px;position:relative;overflow:hidden;}
+.lp-circle1{position:absolute;top:-100px;right:-100px;width:300px;height:300px;border-radius:50%;background:rgba(45,212,191,0.13);filter:blur(60px);}
+.lp-circle2{position:absolute;bottom:-80px;left:-60px;width:260px;height:260px;border-radius:50%;background:rgba(13,31,60,0.07);filter:blur(50px);}
+
+.lp-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan2);display:flex;align-items:center;gap:12px;margin-bottom:28px;font-weight:500;}
+.lp-tag::before{content:'';width:30px;height:2px;background:var(--cyan2);border-radius:2px;flex-shrink:0;}
+
+.lp-title{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:300;color:var(--navy);line-height:1.0;letter-spacing:-2px;margin-bottom:22px;}
+.lp-title em{font-style:italic;color:var(--cyan2);}
+
+.lp-body{font-size:15px;font-weight:400;color:var(--muted);line-height:1.82;margin-bottom:40px;max-width:360px;}
+
+.lp-features{display:flex;flex-direction:column;gap:16px;margin-bottom:44px;}
+.lp-feat{display:flex;align-items:center;gap:16px;}
+.lp-feat-icon{width:42px;height:42px;border-radius:12px;background:#fff;border:1px solid rgba(13,31,60,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;box-shadow:0 2px 12px rgba(13,31,60,0.08);}
+.lp-feat-name{font-size:15px;font-weight:600;color:var(--navy);}
+.lp-feat-desc{font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;}
+
+.lp-footer{padding-top:28px;border-top:1px solid rgba(13,31,60,0.12);}
+.lp-footer p{font-size:13px;font-weight:400;color:var(--muted);margin-bottom:3px;}
+.lp-footer span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--navy);font-weight:500;}
+
+/* ── RIGHT PANEL — NAVY ── */
+.right-panel{background:var(--navy2);display:flex;align-items:center;justify-content:center;padding:110px 64px 64px;position:relative;overflow:hidden;}
+.rp-glow1{position:absolute;top:-60px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(45,212,191,0.09);filter:blur(60px);}
+.rp-glow2{position:absolute;bottom:-80px;right:-50px;width:240px;height:240px;border-radius:50%;background:rgba(100,150,255,0.08);filter:blur(55px);}
+.rp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(45,212,191,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.03) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;}
+
+/* ── FORM CARD ── */
+.card{position:relative;z-index:2;width:100%;max-width:400px;animation:fadeUp 0.65s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:translateY(0);}}
+
+.card-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:36px;}
+.card-logo-dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 16px var(--cyan);}
+.card-logo-text{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;}
+.card-logo-text span{color:var(--cyan);}
+
+.card-heading{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:300;color:#fff;line-height:1.05;margin-bottom:6px;}
+.card-heading em{font-style:italic;color:var(--cyan);}
+.card-sub{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--beige2);margin-bottom:32px;font-weight:400;}
+
+/* ── ROLE TOGGLE ── */
+.role-row{display:flex;background:rgba(255,255,255,0.05);border:1px solid rgba(245,240,232,0.12);border-radius:12px;padding:5px;margin-bottom:28px;gap:5px;}
+.role-btn{flex:1;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px;border-radius:8px;border:none;cursor:pointer;transition:all 0.25s;background:transparent;color:var(--beige2);font-weight:400;}
+.role-btn.active{background:var(--cyan);color:var(--navy);font-weight:700;box-shadow:0 0 22px rgba(45,212,191,0.35);}
+
+/* ── ADMIN NOTE ── */
+.admin-note{background:rgba(45,212,191,0.1);border:1px solid rgba(45,212,191,0.3);border-radius:10px;padding:12px 16px;margin-bottom:22px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--cyan);text-align:center;display:none;}
+.admin-note.show{display:block;}
+
+/* ── FIELDS ── */
+.field{margin-bottom:20px;}
+.field label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--beige);margin-bottom:9px;font-weight:500;}
+.field input{width:100%;background:rgba(245,240,232,0.07);border:1px solid rgba(245,240,232,0.2);border-radius:10px;padding:15px 18px;color:#fff;font-size:15px;font-weight:400;font-family:'DM Sans',sans-serif;outline:none;transition:all 0.2s;}
+.field input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(45,212,191,0.12);background:rgba(245,240,232,0.09);}
+.field input::placeholder{color:rgba(245,240,232,0.3);font-weight:300;}
+
+.forgot-row{text-align:right;margin-bottom:26px;margin-top:-8px;}
+.forgot-btn{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);background:none;border:none;cursor:pointer;transition:opacity 0.2s;}
+.forgot-btn:hover{opacity:0.75;}
+
+/* ── SUBMIT ── */
+.submit-btn{width:100%;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;padding:18px;background:var(--cyan);color:var(--navy);border:none;border-radius:10px;cursor:pointer;font-weight:700;transition:all 0.3s;box-shadow:0 0 40px rgba(45,212,191,0.3);margin-bottom:28px;}
+.submit-btn:hover{background:var(--cyan2);box-shadow:0 0 60px rgba(45,212,191,0.5);transform:translateY(-2px);}
+.submit-btn:active{transform:translateY(0);}
+
+/* ── DIVIDER ── */
+.divider{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.divider-line{flex:1;height:1px;background:rgba(245,240,232,0.12);}
+.divider-text{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--beige2);}
+
+/* ── BOTTOM ── */
+.bottom-row{text-align:center;}
+.bottom-row p{font-size:14px;font-weight:400;color:var(--beige);}
+.bottom-row a{color:var(--cyan);font-weight:600;text-decoration:none;margin-left:5px;}
+.bottom-row a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="bg-blob b1"></div>
+<div class="bg-blob b2"></div>
+<div class="bg-blob b3"></div>
+<div class="grid-lines"></div>
+<div class="stars" id="stars"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="StartupcellPortal_V1_Home.html" class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    Startup<span>Cell</span>
+  </a>
+  <a href="StartupcellPortal_V1_Home.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<div class="page">
+
+  <!-- LEFT: BEIGE PANEL -->
+  <div class="left-panel">
+    <div class="lp-circle1"></div>
+    <div class="lp-circle2"></div>
+
+    <div class="lp-tag">Student Innovation Portal</div>
+
+    <div class="lp-title">Sign in to<br>your <em>startup</em><br>journey.</div>
+
+    <div class="lp-body">One platform for college students to register startups, connect with mentors, track milestones, and walk into any pitch — completely ready.</div>
+
+    <div class="lp-features">
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🚀</div>
+        <div>
+          <div class="lp-feat-name">Register your startup</div>
+          <div class="lp-feat-desc">Submit proposals &amp; track approvals</div>
+        </div>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🤝</div>
+        <div>
+          <div class="lp-feat-name">Connect with mentors</div>
+          <div class="lp-feat-desc">Domain-matched expert guidance</div>
+        </div>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🎯</div>
+        <div>
+          <div class="lp-feat-name">Check pitch readiness</div>
+          <div class="lp-feat-desc">Score across 5 key dimensions</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-footer">
+      <p>FEDF · Front End Development Frameworks &amp; UI Engineering</p>
+      <span>Section 13 · KL Hyderabad</span>
+    </div>
+  </div>
+
+  <!-- RIGHT: NAVY FORM PANEL -->
+  <div class="right-panel">
+    <div class="rp-glow1"></div>
+    <div class="rp-glow2"></div>
+    <div class="rp-grid"></div>
+
+    <div class="card">
+      <div class="card-logo-row">
+        <div class="card-logo-dot"></div>
+        <div class="card-logo-text">Startup<span>Cell</span></div>
+      </div>
+
+      <div class="card-heading">Welcome <em>back.</em></div>
+      <div class="card-sub">Sign in to your account</div>
+
+      <div class="role-row">
+        <button class="role-btn active" id="btn-student" onclick="setRole('student')">Student</button>
+        <button class="role-btn" id="btn-admin" onclick="setRole('admin')">Admin</button>
+      </div>
+
+      <div class="admin-note" id="admin-note">Admin access requires institutional credentials</div>
+
+      <form onsubmit="handleLogin(event)">
+        <div class="field">
+          <label id="email-label">Email Address</label>
+          <input type="email" id="email" placeholder="you@university.edu" required/>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="••••••••" required/>
+        </div>
+
+        <div class="forgot-row">
+          <button type="button" class="forgot-btn">Forgot password?</button>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Sign In as Student →</button>
+      </form>
+
+      <div class="divider" id="divider-signup">
+        <div class="divider-line"></div>
+        <div class="divider-text">New here?</div>
+        <div class="divider-line"></div>
+      </div>
+      <div class="bottom-row" id="bottom-signup">
+        <p>Don't have an account? <a href="signup.html">Create one →</a></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// Stars
+const s = document.getElementById('stars');
+for(let i = 0; i < 70; i++){
+  const d = document.createElement('div');
+  d.className = 'star';
+  const size = Math.random() < 0.3 ? 3 : 2;
+  d.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;animation-delay:${Math.random()*4}s;`;
+  s.appendChild(d);
+}
+
+function setRole(role) {
+  document.getElementById('btn-student').classList.toggle('active', role === 'student');
+  document.getElementById('btn-admin').classList.toggle('active', role === 'admin');
+  document.getElementById('admin-note').classList.toggle('show', role === 'admin');
+  document.getElementById('email-label').textContent = role === 'admin' ? 'Admin Email' : 'Email Address';
+  document.getElementById('email').placeholder = role === 'admin' ? 'admin@institution.edu' : 'you@university.edu';
+  document.getElementById('submit-btn').textContent = role === 'admin' ? 'Sign In as Admin →' : 'Sign In as Student →';
+  document.getElementById('divider-signup').style.display = role === 'admin' ? 'none' : 'flex';
+  document.getElementById('bottom-signup').style.display = role === 'admin' ? 'none' : 'block';
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = 'Signing in...';
+  btn.style.opacity = '0.75';
+  setTimeout(() => { window.location.href = 'StartupcellPortal_V1_Home.html'; }, 900);
+}
+</script>
+</body>
+</html>
